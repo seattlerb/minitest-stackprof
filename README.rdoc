@@ -5,19 +5,55 @@ rdoc :: http://docs.seattlerb.org/minitest-stackprof
 
 == DESCRIPTION:
 
-FIX (describe your package)
+A minitest plugin that runs your tests and outputs a stackprof
+profile. This lets you quickly and easily determine the bottlenecks in
+your code under test!
+
+* Make it right. (test first)
+* Make it work.  (get to green)
+* Make it fast.  (optimize)
 
 == FEATURES/PROBLEMS:
 
-* FIX (list of features or problems)
+* Provides a `--stackprof <path>` argument so you can make multiple
+  profiles to compare over time.
+* Provides a `--stackprof-type (wall|cpu|object)` argument so you can
+  profile in different ways.
 
 == SYNOPSIS:
 
-  FIX (code sample of usage)
+  % rake TESTOPTS="--stackprof=profile.dump"
+  Run options: -g --seed 59120
+
+  # Running:
+
+  ..............................................................................
+  ..............................................................................
+  ..............................................................................
+  ...................................................
+
+  Finished in 0.145769s, 1955.1482 runs/s, 5769.4023 assertions/s.
+
+  285 runs, 841 assertions, 0 failures, 0 errors, 0 skips
+
+  % stackprof profile.dump
+  ==================================
+    Mode: wall(1000)
+    Samples: 999 (0.20% miss rate)
+    GC: 0 (0.00%)
+  ==================================
+       TOTAL    (pct)     SAMPLES    (pct)     FRAME
+         999 (100.0%)         999 (100.0%)     Something#very_slow
+         999 (100.0%)           0   (0.0%)     TestMinitest::TestStackprof#test_wall_slow
+         999 (100.0%)           0   (0.0%)     Minitest::Test#run
+         999 (100.0%)           0   (0.0%)     Minitest::Test#capture_exceptions
+         ... blah blah blah ...
 
 == REQUIREMENTS:
 
-* FIX (list of requirements)
+* minitest
+* stackprof (`gem install stackprof`)
+* ruby 2.6+
 
 == INSTALL:
 
